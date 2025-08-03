@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Flow - Address Proof</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Steps -->
+        <div class="steps">
+            <div class="step active"><a href="idProff.html">ID Proof</a></div>
+            <div class="step"><a href="addressProff.html">Address Proof</a></div>
+        </div>
+
+        <form class="kyc-form">
+            <h2>Upload your Address Proof</h2>
+            <p class="subtitle">Passports and driving licenses are accepted</p>
+
+            <div class="form-fields">
+                <!-- Address Type Selection -->
+                <div class="form-group">
+                    <label for="addressType">Address Type</label>
+                    <select id="addressType" name="addressType" required>
+                        <option value="">Select Address Type</option>
+                        <option value="utility">Utility Bill</option>
+                        <option value="bank">Bank Statement</option>
+                        <option value="rental">Rental Agreement</option>
+                    </select>
+                </div>
+
+                <!-- Issue Date Input -->
+                <div class="form-group">
+                    <label for="issueDate">Issue Date</label>
+                    <input type="date" id="issueDate" name="issueDate" placeholder="dd---yyyy" required>
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="proof-section">
+                    <label class="section-label">Proof Of address</label>
+                    <div class="upload-boxes">
+                        <!-- Front Side Upload -->
+                        <div class="upload-box">
+                            <label>ID Front</label>
+                            <button type="button" class="browse-btn" data-input="frontProof">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M3 15V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>Browse Files</span>
+                                <small>Drag and drop files here</small>
+                            </button>
+                            <input type="file" id="frontProof" name="frontProof" hidden accept="image/*,.pdf" required>
+                        </div>
+
+                        <!-- Back Side Upload -->
+                        <div class="upload-box">
+                            <label>ID Back</label>
+                            <button type="button" class="browse-btn" data-input="backProof">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M3 15V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>Browse Files</span>
+                                <small>Drag and drop files here</small>
+                            </button>
+                            <input type="file" id="backProof" name="backProof" hidden accept="image/*,.pdf" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Note and Submit Button -->
+             
+            <p class="note">Please note that the documents should not be older than 75 days</p>
+            <button type="submit" class="continue-btn">Continue</button>
+        </form>
+    </div>
+
+    <script>
+        // File Upload Functionality
+        document.querySelectorAll('.browse-btn').forEach(button => {
+            const input = document.getElementById(button.dataset.input);
+            
+            // Click handler
+            button.addEventListener('click', () => input.click());
+            
+            // File change handler
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const buttonText = button.querySelector('span');
+                    const dragText = button.querySelector('small');
+                    buttonText.textContent = file.name;
+                    dragText.textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+                }
+            });
+
+            // Drag and drop handlers
+            button.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                button.classList.add('drag-over');
+            });
+
+            button.addEventListener('dragleave', () => {
+                button.classList.remove('drag-over');
+            });
+
+            button.addEventListener('drop', (e) => {
+                e.preventDefault();
+                button.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    input.files = e.dataTransfer.files;
+                    input.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>

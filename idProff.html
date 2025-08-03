@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Flow</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Step Indicators -->
+        <div class="steps">
+            <div class="step active"><a href="#">ID Proof</a></div>
+            <div class="step"><a href="#">Address Proof</a></div>
+        </div>
+
+        <!-- ID Proof Form -->
+        <form class="kyc-form">
+            <h2>Upload your Identity Proof</h2>
+            <p class="subtitle">Passports and driving licenses are accepted</p>
+
+            <div class="form-content">
+                <!-- Left side - Form Fields -->
+                <div class="form-fields">
+                    <div class="form-group">
+                        <label for="idNumber">Id Number</label>
+                        <input type="text" id="idNumber" name="idNumber" placeholder="Enter Id Number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idType">Id Type</label>
+                        <select id="idType" name="idType" required>
+                            <option value="">Select Id Type</option>
+                            <option value="passport">Passport</option>
+                            <option value="driving">Driving License</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueDate">Issue Date</label>
+                        <input type="date" id="issueDate" name="issueDate" placeholder="dd---yyyy" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="date" id="expiryDate" name="expiryDate" placeholder="dd---yyyy" required>
+                    </div>
+                </div>
+
+                <!-- Right side - Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-box">
+                        <label>ID Front</label>
+                        <button type="button" class="browse-btn" data-input="frontFile">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M3 15V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span class="browse-text">Browse Files</span>
+                            <span class="drag-text">Drag and drop files here</span>
+                        </button>
+                        <input type="file" id="frontFile" name="frontFile" hidden accept="image/*,.pdf" required>
+                    </div>
+
+                    <div class="upload-box">
+                        <label>ID Back</label>
+                        <button type="button" class="browse-btn" data-input="backFile">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M3 15V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span class="browse-text">Browse Files</span>
+                            <span class="drag-text">Drag and drop files here</span>
+                        </button>
+                        <input type="file" id="backFile" name="backFile" hidden accept="image/*,.pdf" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="continue-btn">Continue</button>
+        </form>
+    </div>
+
+    <script>
+        document.querySelectorAll('.browse-btn').forEach(button => {
+            const input = document.getElementById(button.dataset.input);
+            
+            // Handle button click
+            button.addEventListener('click', () => input.click());
+            
+            // Handle file selection
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const buttonContent = button.querySelector('.browse-text');
+                    buttonContent.textContent = file.name;
+                    
+                    // Optionally show file size
+                    const dragText = button.querySelector('.drag-text');
+                    const size = (file.size / (1024 * 1024)).toFixed(2);
+                    dragText.textContent = `${size}MB`;
+                }
+            });
+
+            // Handle drag and drop
+            button.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                button.style.borderColor = 'var(--secondary-color)';
+            });
+
+            button.addEventListener('dragleave', () => {
+                button.style.borderColor = 'var(--border-color)';
+            });
+
+            button.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    input.files = e.dataTransfer.files;
+                    const event = new Event('change');
+                    input.dispatchEvent(event);
+                }
+                button.style.borderColor = 'var(--border-color)';
+            });
+        });
+    </script>
+</body>
+</html>

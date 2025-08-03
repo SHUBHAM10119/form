@@ -1,0 +1,330 @@
+:root {
+    /* Primary colors */
+    --primary-color: #000000;      /* Black - for main text and continue button */
+    --secondary-color: #666666;    /* Dark Gray - for secondary text and icons */
+    --border-color: #E5E5E5;       /* Light Gray - for borders */
+    --highlight-color: #FFE600;    /* Yellow - for progress indicator */
+    
+    /* New colors from the design system */
+    --bg-light-gray: #F5F5F5;      /* Light Gray - form background */
+    --white: #FFFFFF;              /* White - input fields and upload sections */
+    --black: #000000;              /* Black - main text and buttons */
+    --yellow: #FFE600;             /* Yellow - progress indicator */
+    --dark-gray: #666666;          /* Dark Gray - secondary text and icons */
+
+    /* Spacing variables */
+    --space-xs: 5px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 20px;
+    --space-xl: 24px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-light-gray);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-bottom: 40px;
+    position: relative;
+    max-width: 400px;
+    margin: 20px auto 30px;
+}
+
+.step {
+    position: relative;
+    padding-bottom: var(--space-sm);
+    text-align: center;
+    flex: 1;
+}
+
+.step a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px 20px;
+    display: block;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.step:hover {
+    opacity: 0.8;
+}
+
+.step.active {
+    border-bottom-color: var(--highlight-color);
+}
+
+.step.active a {
+    color: var(--black);
+    font-weight: 600;
+}
+
+.step.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--highlight-color);
+}
+
+.step:not(.active):hover a {
+    background-color: var(--bg-light-gray);
+}
+
+.kyc-form {
+    max-width: 720px;
+}
+
+.kyc-form h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: var(--space-sm);
+    text-align: center;
+}
+
+.subtitle {
+    color: var(--secondary-color);
+    font-size: 14px;
+    margin-bottom: var(--space-lg);
+    text-align: center;
+}
+
+.form-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 48px;
+    align-items: start;
+}
+
+/* Update form field styles for consistent width */
+.form-fields {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 0;
+    margin-bottom: var(--space-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 44px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333333;
+    background-color: var(--white);
+}
+
+.form-group input::placeholder,
+.form-group select::placeholder {
+    color: #CCCCCC;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* Style for date input calendar icon */
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+    margin-left: auto;
+    padding-right: 8px;
+}
+
+/* Style for select dropdown arrow */
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23666666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.upload-box {
+    text-align: left;
+}
+
+.upload-box label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.browse-btn {
+    width: 100%;
+    height: 120px;
+    background: var(--white);
+    border: none; /* Remove the border */
+    box-shadow: 0 0 0 1px var(--border-color); /* Add subtle box shadow instead */
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    padding: var(--space-lg);
+    text-align: center;
+}
+
+.browse-btn:hover {
+    box-shadow: 0 0 0 1.5px var(--secondary-color); /* Update hover effect */
+}
+
+.browse-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 1.5px var(--secondary-color);
+}
+
+.browse-btn svg {
+    width: 24px;
+    height: 24px;
+    color: var(--dark-gray);
+    opacity: 0.5;
+}
+
+.browse-btn span {
+    color: #666666;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.browse-btn small {
+    color: #CCCCCC;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.continue-btn {
+    width: 100%;
+    max-width: 380px;
+    padding: 15px;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: var(--space-lg);
+    display: block;
+    transition: opacity 0.3s ease;
+    text-align: center;
+}
+
+.continue-btn:hover {
+    opacity: 0.8;
+}
+
+/* Add styles for the note */
+.note {
+    text-align: center;
+    color: #666666;
+    font-size: 12px;
+    font-weight: normal;
+    margin: var(--space-lg) auto;
+    max-width: 380px;
+}
+
+/* Update media query */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: var(--space-md);
+    }
+
+    .form-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .continue-btn {
+        max-width: 100%;
+        margin: 32px 0 0; /* Keep consistent margin */
+    }
+
+    .upload-boxes {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .note {
+        text-align: center;
+        max-width: 100%;
+        margin: 24px 0;
+    }
+
+    .steps {
+        padding: 0 var(--space-md);
+    }
+    
+    .step a {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Remove outline from buttons and form elements */
+button:focus,
+input:focus,
+select:focus {
+    outline: none;
+}
+
+.browse-btn:focus {
+
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+/* Optional: Add a subtle box-shadow on focus for accessibility */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 1px var(--border-color);
+}
